@@ -4,8 +4,10 @@ const mainDisplay = document.getElementById("main-display");
 let num1 = "";
 let num2 = "";
 let operation ="";
+let pastOp = "";
+let pastnum2 = "";
 let evaled = false;
-
+const dot = document.getElementById(".");
 function clicked(e){
     if(this.classList.contains("number")){
         numClick(this);
@@ -16,27 +18,44 @@ function clicked(e){
     
 }
 function evaluateExp(){
-    console.log("hi");
     if(num1 == "" || num2 == "" || operation == ""){
+        if(pastOp != "" && pastnum2 != ""){
+            evalPart(pastOp, num1, pastnum2);
+            evaled = true;
+            mainDisplay.innerText = Math.round(num1*100000)/100000;
+            dot.addEventListener("click", numClick);
+        }
         return;
     }
     else{
-        if (operation == "+"){
-            num1 = parseInt(num1)+parseInt(num2);
-        }
-        else if (operation == "-"){
-            num1 = parseInt(num1)-parseInt(num2);
-        }
-        else if (operation == "x"){
-            num1 = parseInt(num1)*parseInt(num2);
-        }
-        else if (operation == "/"){
-            num1 = parseInt(num1)/parseInt(num2);
-        }
+        evalPart(operation, num1, num2);
+        dot.addEventListener("click", numClick);
         operation = "";
         num2 = "";
         evaled = true;
         mainDisplay.innerText = Math.round(num1*100000)/100000;
+    }
+}
+function evalPart(operate, number1, number2){
+    if (operate == "+"){
+        num1 = parseInt(number1)+parseInt(number2);
+        pastOp = operate;
+        pastnum2 = number2;
+    }
+    else if (operate == "-"){
+        num1 = parseInt(number1)-parseInt(number2);
+        pastOp = operate;
+        pastnum2 = number2;
+    }
+    else if (operate == "x"){
+        num1 = parseInt(number1)*parseInt(number2);
+        pastOp = operate;
+        pastnum2 = number2;
+    }
+    else if (operate == "/"){
+        num1 = parseInt(number1)/parseInt(number2);
+        pastOp = operate;
+        pastnum2 = number2;
     }
 }
 function operatorClick(button){
@@ -82,6 +101,7 @@ function clearClick(){
     operation = "";
     num2 = "";
     mainDisplay.innerText="";
+    evaled = false;
 }
 function hovered(e){
     this.classList.add("hovered");
