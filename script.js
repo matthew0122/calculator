@@ -13,14 +13,26 @@ function clicked(e){
 }
 function numClick(button){
     if(num1 === ""){
+        if(button.id == "."){
+            console.log(button);
+            button.removeEventListener("click", clicked);
+        }
         num1 += button.id;
         mainDisplay.innerText = num1;
     }
     else if(operation === ""){
+        if(button.id == "."){
+            console.log(button);
+            button.removeEventListener("click", clicked);
+        }
         num1 += button.id;
         mainDisplay.innerText = num1;
     }
     else{
+        if(button.id == "."){
+            console.log(button);
+            button.removeEventListener("click", clicked);
+        }
         num2 += button.id;
         mainDisplay.innerText = num2;
     }
