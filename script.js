@@ -4,6 +4,7 @@ const mainDisplay = document.getElementById("main-display");
 let num1 = "";
 let num2 = "";
 let operation ="";
+let evaled = false;
 
 function clicked(e){
     if(this.classList.contains("number")){
@@ -15,6 +16,7 @@ function clicked(e){
     
 }
 function evaluateExp(){
+    console.log("hi");
     if(num1 == "" || num2 == "" || operation == ""){
         return;
     }
@@ -33,12 +35,17 @@ function evaluateExp(){
         }
         operation = "";
         num2 = "";
-        mainDisplay.innerText = num1;
+        evaled = true;
+        mainDisplay.innerText = Math.round(num1*100000)/100000;
     }
 }
 function operatorClick(button){
     if (button.id=="="){
         evaluateExp();
+    }
+    else if(num1 != "" && num2 != "" && operation != ""){
+        evaluateExp();
+        operation = button.id;
     }
     else if(num1 == "" || operation != ""){
         return;
@@ -50,7 +57,6 @@ function operatorClick(button){
 function numClick(button){
     if(num1 === ""){
         if(button.id == "."){
-            console.log(button);
             button.removeEventListener("click", clicked);
         }
         num1 += button.id;
@@ -58,7 +64,6 @@ function numClick(button){
     }
     else if(operation === ""){
         if(button.id == "."){
-            console.log(button);
             button.removeEventListener("click", clicked);
         }
         num1 += button.id;
@@ -66,7 +71,6 @@ function numClick(button){
     }
     else{
         if(button.id == "."){
-            console.log(button);
             button.removeEventListener("click", clicked);
         }
         num2 += button.id;
@@ -74,7 +78,10 @@ function numClick(button){
     }
 }
 function clearClick(){
-
+    num1 = "";
+    operation = "";
+    num2 = "";
+    mainDisplay.innerText="";
 }
 function hovered(e){
     this.classList.add("hovered");
