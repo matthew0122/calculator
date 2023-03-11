@@ -9,7 +9,43 @@ function clicked(e){
     if(this.classList.contains("number")){
         numClick(this);
     }
+    else if (this.classList.contains("operation")){
+        operatorClick(this);
+    }
     
+}
+function evaluateExp(){
+    if(num1 == "" || num2 == "" || operation == ""){
+        return;
+    }
+    else{
+        if (operation == "+"){
+            num1 = parseInt(num1)+parseInt(num2);
+        }
+        else if (operation == "-"){
+            num1 = parseInt(num1)-parseInt(num2);
+        }
+        else if (operation == "x"){
+            num1 = parseInt(num1)*parseInt(num2);
+        }
+        else if (operation == "/"){
+            num1 = parseInt(num1)/parseInt(num2);
+        }
+        operation = "";
+        num2 = "";
+        mainDisplay.innerText = num1;
+    }
+}
+function operatorClick(button){
+    if (button.id=="="){
+        evaluateExp();
+    }
+    else if(num1 == "" || operation != ""){
+        return;
+    }
+    else{
+        operation = button.id;
+    }
 }
 function numClick(button){
     if(num1 === ""){
