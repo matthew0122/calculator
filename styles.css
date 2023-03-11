@@ -31,9 +31,13 @@ button {
     font-size: 45px;
     border: none;
     margin-right:5px;
+    opacity: 1;
 }
 #zero {
     width:195px;
     text-align: left;
     padding-left:33px;
+}
+.hovered {
+    opacity: 0.5;
 }
