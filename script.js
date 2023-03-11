@@ -15,6 +15,9 @@ function clicked(e){
     else if (this.classList.contains("operation")){
         operatorClick(this);
     }
+    if (this.id == "clear"){
+        clearClick();
+    }
     
 }
 function evaluateExp(){
