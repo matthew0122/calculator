@@ -21,79 +21,86 @@ function clicked(e){
     
 }
 function evaluateExp(){
+    console.log(num1 + operation + num2);
     if(num1 == "" || num2 == "" || operation == ""){
         if(pastOp != "" && pastnum2 != ""){
             evalPart(pastOp, num1, pastnum2);
             evaled = true;
             mainDisplay.innerText = Math.round(num1*100000)/100000;
-            dot.addEventListener("click", numClick);
+            return true;
         }
-        return;
+        return false;
     }
     else{
         evalPart(operation, num1, num2);
-        dot.addEventListener("click", numClick);
+        console.log(num1);
         operation = "";
         num2 = "";
         evaled = true;
         mainDisplay.innerText = Math.round(num1*100000)/100000;
+        return true;
     }
 }
 function evalPart(operate, number1, number2){
     if (operate == "+"){
-        num1 = parseInt(number1)+parseInt(number2);
+        num1 = parseFloat(number1)+parseFloat(number2);
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "-"){
-        num1 = parseInt(number1)-parseInt(number2);
+        num1 = parseFloat(number1)-parseFloat(number2);
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "x"){
-        num1 = parseInt(number1)*parseInt(number2);
+        num1 = parseFloat(number1)*parseFloat(number2);
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "/"){
-        num1 = parseInt(number1)/parseInt(number2);
+        num1 = parseFloat(number1)/parseFloat(number2);
         pastOp = operate;
         pastnum2 = number2;
     }
+    console.log(num1);
 }
 function operatorClick(button){
     if (button.id=="="){
-        evaluateExp();
+        if(evaluateExp()){
+            dot.addEventListener("click", clicked);
+        }
     }
     else if(num1 != "" && num2 != "" && operation != ""){
         evaluateExp();
         operation = button.id;
+        dot.addEventListener("click", clicked);
     }
     else if(num1 == "" || operation != ""){
         return;
     }
     else{
         operation = button.id;
+        dot.addEventListener("click", clicked);
     }
 }
 function numClick(button){
     if(num1 === ""){
         if(button.id == "."){
-            button.removeEventListener("click", clicked);
+            dot.removeEventListener("click", clicked);
         }
         num1 += button.id;
         mainDisplay.innerText = num1;
     }
     else if(operation === ""){
         if(button.id == "."){
-            button.removeEventListener("click", clicked);
+            dot.removeEventListener("click", clicked);
         }
         num1 += button.id;
         mainDisplay.innerText = num1;
     }
     else{
         if(button.id == "."){
-            button.removeEventListener("click", clicked);
+            dot.removeEventListener("click", clicked);
         }
         num2 += button.id;
         mainDisplay.innerText = num2;
