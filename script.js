@@ -1,8 +1,32 @@
 const buttons = Array.from(document.querySelectorAll("button"));
 addButtonEvents(buttons);
+const mainDisplay = document.getElementById("main-display");
+let num1 = "";
+let num2 = "";
+let operation ="";
 
 function clicked(e){
-    console.log(e);
+    if(this.classList.contains("number")){
+        numClick(this);
+    }
+    
+}
+function numClick(button){
+    if(num1 === ""){
+        num1 += button.id;
+        mainDisplay.innerText = num1;
+    }
+    else if(operation === ""){
+        num1 += button.id;
+        mainDisplay.innerText = num1;
+    }
+    else{
+        num2 += button.id;
+        mainDisplay.innerText = num2;
+    }
+}
+function clearClick(){
+
 }
 function hovered(e){
     this.classList.add("hovered");
