@@ -19,7 +19,12 @@ function clicked(e){
         clearClick();
     }
     if(this.id == "backspace"){
-        let num = "";
+        deleteDigit();
+    }
+    
+}
+function deleteDigit(){
+    let num = "";
         if(num2 != ""){
             for (let i = 0; i < num2.length-1; i++){
                 num += num2[i];
@@ -39,8 +44,6 @@ function clicked(e){
             }
             
         }
-    }
-    
 }
 function evaluateExp(){
     if(num1 == "" || num2 == "" || operation == ""){
@@ -70,22 +73,22 @@ function evaluateExp(){
 }
 function evalPart(operate, number1, number2){
     if (operate == "+"){
-        num1 = ""+ (parseFloat(number1)+parseFloat(number2));
+        num1 = ""+Math.round((parseFloat(number1)+parseFloat(number2))*10000)/10000;
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "-"){
-        num1 = ""+(parseFloat(number1)-parseFloat(number2));
+        num1 = ""+Math.round((parseFloat(number1)-parseFloat(number2))*10000)/10000;
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "x"){
-        num1 = ""+(parseFloat(number1)*parseFloat(number2));
+        num1 = ""+Math.round((parseFloat(number1)*parseFloat(number2))*10000)/10000;
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "/"){
-        num1 = ""+(parseFloat(number1)/parseFloat(number2));
+        num1 = ""+Math.round((parseFloat(number1)/parseFloat(number2))*10000)/10000;
         pastOp = operate;
         pastnum2 = number2;
     }
