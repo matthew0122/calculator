@@ -56,6 +56,7 @@ function evaluateExp(){
                 num1 = "";
                 num2= "";
                 num3="";
+                evaled = false;
             }
             return true;
         }
@@ -139,6 +140,8 @@ function clearClick(){
     num1 = "";
     operation = "";
     num2 = "";
+    pastOp="";
+    pastnum2="";
     mainDisplay.innerText="";
     evaled = false;
 }
