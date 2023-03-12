@@ -18,51 +18,77 @@ function clicked(e){
     if (this.id == "clear"){
         clearClick();
     }
+    if(this.id == "backspace"){
+        let num = "";
+        if(num2 != ""){
+            for (let i = 0; i < num2.length-1; i++){
+                num += num2[i];
+                console.log(num);
+            }
+            num2=num;
+            mainDisplay.innerText=num2;
+        }
+        else{
+            if(!evaled){
+                for (let i = 0; i < num1.length-1; i++){
+                    num += num1[i];
+                    console.log(num);
+                }
+                num1=num;
+                mainDisplay.innerText=num1;
+            }
+            
+        }
+    }
     
 }
 function evaluateExp(){
-    console.log(num1 + operation + num2);
     if(num1 == "" || num2 == "" || operation == ""){
         if(pastOp != "" && pastnum2 != ""){
             evalPart(pastOp, num1, pastnum2);
             evaled = true;
-            mainDisplay.innerText = Math.round(num1*100000)/100000;
+            mainDisplay.innerText = num1;
+            if (num1.length > 13){
+                mainDisplay.innerText = `OVERFLOW ERROR`;
+                num1 = "";
+                num2= "";
+                num3="";
+            }
             return true;
         }
         return false;
     }
     else{
         evalPart(operation, num1, num2);
-        console.log(num1);
         operation = "";
         num2 = "";
         evaled = true;
-        mainDisplay.innerText = Math.round(num1*100000)/100000;
+        
+        mainDisplay.innerText = num1;
         return true;
     }
 }
 function evalPart(operate, number1, number2){
     if (operate == "+"){
-        num1 = parseFloat(number1)+parseFloat(number2);
+        num1 = ""+ (parseFloat(number1)+parseFloat(number2));
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "-"){
-        num1 = parseFloat(number1)-parseFloat(number2);
+        num1 = ""+(parseFloat(number1)-parseFloat(number2));
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "x"){
-        num1 = parseFloat(number1)*parseFloat(number2);
+        num1 = ""+(parseFloat(number1)*parseFloat(number2));
         pastOp = operate;
         pastnum2 = number2;
     }
     else if (operate == "/"){
-        num1 = parseFloat(number1)/parseFloat(number2);
+        num1 = ""+(parseFloat(number1)/parseFloat(number2));
         pastOp = operate;
         pastnum2 = number2;
     }
-    console.log(num1);
 }
 function operatorClick(button){
     if (button.id=="="){
