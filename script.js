@@ -1,3 +1,4 @@
+document.addEventListener("keydown", keyboardEvents)
 const buttons = Array.from(document.querySelectorAll("button"));
 addButtonEvents(buttons);
 const mainDisplay = document.getElementById("main-display");
@@ -157,4 +158,29 @@ function addButtonEvents(arr){
         arr[i].addEventListener("mouseenter", hovered);
         arr[i].addEventListener("mouseleave", unhovered);
     }
+}
+function keyboardEvents(e){
+    let name = e.key;
+    let buttonEquiv = document.getElementById(name);
+    if(name == "Enter"){
+        buttonEquiv = document.getElementById("=");
+    }
+    if(buttonEquiv != null){
+        if(buttonEquiv.classList.contains("number")){
+            numClick(buttonEquiv);
+        }
+        else if (buttonEquiv.classList.contains("operation")){
+            operatorClick(buttonEquiv);
+        }
+        if (buttonEquiv.id == "clear"){
+            clearClick();
+        }
+        if(buttonEquiv.id == "Backspace"){
+            deleteDigit();
+        }
+    }
+    else{
+        console.log(name);
+    }
+    console.log(buttonEquiv);
 }
