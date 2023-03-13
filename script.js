@@ -47,7 +47,10 @@ function deleteDigit(){
         }
 }
 function evaluateExp(){
-    if(num1 == "" || num2 == "" || operation == ""){
+    if(num1 == ""){
+        return false;
+    }
+    if(num2 == "" && operation == ""){
         if(pastOp != "" && pastnum2 != ""){
             evalPart(pastOp, num1, pastnum2);
             evaled = true;
@@ -63,11 +66,13 @@ function evaluateExp(){
         }
         return false;
     }
+    else if (num2 == "" || operation == ""){
+        return false;
+    }
     else{
-        evalPart(operation, num1, num2);
+        evaled = evalPart(operation, num1, num2);
         operation = "";
         num2 = "";
-        evaled = true;
         
         mainDisplay.innerText = num1;
         return true;
@@ -90,10 +95,18 @@ function evalPart(operate, number1, number2){
         pastnum2 = number2;
     }
     else if (operate == "/"){
-        num1 = ""+Math.round((parseFloat(number1)/parseFloat(number2))*10000)/10000;
-        pastOp = operate;
-        pastnum2 = number2;
+        if(number2 != 0){
+            num1 = ""+Math.round((parseFloat(number1)/parseFloat(number2))*10000)/10000;
+            pastOp = operate;
+            pastnum2 = number2;
+        }
+        else{
+            alert("You cannot divide by zero");
+            return false;
+        }
+        
     }
+    return true;
 }
 function operatorClick(button){
     if (button.id=="="){
@@ -122,14 +135,18 @@ function numClick(button){
         num1 += button.id;
         mainDisplay.innerText = num1;
     }
-    else if(operation === ""){
+    else if(operation === "" && !evaled){
         if(button.id == "."){
-            dot.removeEventListener("click", clicked);
+            if(!num1.includes(".")){
+                num1+= ".";
+            }
         }
-        num1 += button.id;
+        else{
+            num1 += button.id;
+        }
         mainDisplay.innerText = num1;
     }
-    else{
+    else if(operation != ""){
         if(button.id == "."){
             dot.removeEventListener("click", clicked);
         }
@@ -182,5 +199,5 @@ function keyboardEvents(e){
     else{
         console.log(name);
     }
-    console.log(buttonEquiv);
 }
+//add div by 0 allow backspace and when you can add things to display
