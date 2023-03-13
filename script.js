@@ -22,6 +22,16 @@ function clicked(e){
     if(this.id == "backspace"){
         deleteDigit();
     }
+    if(this.id == "negative"){
+      if(num1 == mainDisplay.innerText){
+        num1 *= -1;
+        mainDisplay.innerText = num1;
+      }
+      else if(num2 == mainDisplay.innerText){
+        num2 *= -1;
+        mainDisplay.innerText = num2;
+      }  
+    }
     
 }
 function deleteDigit(){
@@ -200,4 +210,3 @@ function keyboardEvents(e){
         console.log(name);
     }
 }
-//add div by 0 allow backspace and when you can add things to display
