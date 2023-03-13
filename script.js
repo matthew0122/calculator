@@ -32,6 +32,16 @@ function clicked(e){
         mainDisplay.innerText = num2;
       }  
     }
+    if(this.id == "percent"){
+        if(num1 == mainDisplay.innerText){
+            num1 = Math.round(num1*100)/10000;
+            mainDisplay.innerText = num1;
+          }
+          else if(num2 == mainDisplay.innerText){
+            num2 = Math.round(num2*100)/10000;
+            mainDisplay.innerText = num2;
+          }  
+    }
     
 }
 function deleteDigit(){
